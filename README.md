@@ -4,10 +4,13 @@ SQLand is a tool for detecting SQL Injection vulnerabilities in web applications
 
 ## ⚡ Features
 
-- 🔍 Time-based Blind SQL Injection detection
-- 🔍 Error-based Blind SQL Injection detection
-- 🌈 Colored output for better readability
-- 📋 Comprehensive logging
+- ⚡  High-efficient and multi-threading.
+- 📋 Comprehensive logging.
+- 🌈 Colored output for better readability.
+- 🕔 Time-based Blind SQL Injection detection.
+- 🔍 Error-based Blind SQL Injection detection.
+- ❌ Smart DOM sql-like errors detection.
+- 🍪 Custom cookies, headers and static params support.
 
 ## 📋 Usage
 
@@ -16,14 +19,19 @@ To use SQLand, clone the repository and run the tool with the appropriate argume
 ### Arguments
 
 | Argument                 | Description                               | Type                                | Multi |
-|--------------------------|-------------------------------------------|-------------------------------------|-------|
-| `--method GET`           | HTTP method to use                        | `GET` `POST` `PUT` `PATCH` `DELETE` | ❌   |
-| `--header "key: value"`  | Append a header to the request            | `"string: string"`                  | ✅   |
-| `--cookie "key: value"`  | Append a cookie to the request            | `"string: string"`                  | ✅   |
-| `--param key`            | Add a query/body param to fuzz payloads   | `string`                            | ✅   |
-| `--data "key: value"`    | Append a query/body param without fuzz    | `"string: string"`                  | ✅   |
-| `--json`                 | Post param and data as JSON               | `boolean`                           | ❌   |
-| `--form`                 | Post param and data as Form Data          | `boolean`                           | ❌   |
+|--------------------------|-------------------------------------------|-------------------------------------|:-----:|
+| `-x` `--method`          | HTTP method to use                        | `GET` `POST` `PUT` `PATCH` `DELETE` | ❌   |
+| `-H` `--header`          | Append a header to the request            | `"string: string"`                  | ✅   |
+| `-c` `--cookie`          | Append a cookie to the request            | `"string: string"`                  | ✅   |
+| `-p` `--param`           | Add a query/body param to fuzz payloads   | `string`                            | ✅   |
+| `-d` `--data`            | Append a query/body param without fuzz    | `"string: string"`                  | ✅   |
+| `-j` `--json`            | Post param and data as JSON               | `boolean`                           | ❌   |
+| `-f` `--form`            | Post param and data as Form Data          | `boolean`                           | ❌   |
+| `-w` `--workers`         | Number of simultaneous payload requests   | `number (Default 4)`                | ❌   |
+| `-a` `--all`             | Log all successfully payload              | `boolean`                           | ❌   |
+| `-n` `--no_filtering`    | Don't use vanilla request for filtering   | `boolean`                           | ❌   |
+| `-s` `--offset_samples`  | Samples to calculate avg response time    | `number (Default 0)`                | ❌   |
+| `-o` `--offset`          | Time based attack latency offset          | `number (Default 0)`                | ❌   |
 
 ### Example
 

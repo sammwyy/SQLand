@@ -27,12 +27,32 @@ pub struct Args {
     pub data: Vec<String>,
 
     /// JSON body
-    #[arg(short, long, action = ArgAction::SetTrue)]
+    #[arg(short = 'j', long, action = ArgAction::SetTrue)]
     pub json: bool,
 
     /// Form body
-    #[arg(short, long, action = ArgAction::SetTrue)]
+    #[arg(short = 'f', long, action = ArgAction::SetTrue)]
     pub form: bool,
+
+    /// Time based attack latency offset (For normalization purposes)
+    #[arg(short = 'o', long, default_value_t = 0)]
+    pub offset: u128,
+
+    /// Samples to calculate avg response time (For normalization purposes)
+    #[arg(short = 's', long, default_value_t = 0)]
+    pub offset_samples: u128,
+
+    /// Do not use vanilla request for error filtering
+    #[arg(short = 'n', long, action = ArgAction::SetTrue)]
+    pub no_filtering: bool,
+
+    /// Show all successfully payload instead only the first one
+    #[arg(short = 'a', long, action = ArgAction::SetTrue)]
+    pub all: bool,
+
+    // Number of simultaneous payload requests
+    #[arg(short = 'w', long, default_value_t = 4)]
+    pub workers: usize,
 
     /// The URL to test
     pub url: String,

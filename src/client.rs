@@ -1,11 +1,18 @@
-use std::{collections::HashMap, error::Error, time::Duration};
+use std::{
+    collections::HashMap,
+    error::Error,
+    time::{Duration, Instant},
+};
 
 use reqwest::{
-    blocking::{Client, Response},
     header::{HeaderMap, HeaderName, HeaderValue, COOKIE},
+    {Client, Response},
 };
 use url::Url;
 
+use crate::utils::random_length_string;
+
+#[derive(Debug)]
 pub enum SQLandBodyType {
     JSON,
     FORM,
@@ -92,7 +99,7 @@ impl SQLand {
         Ok(client)
     }
 
-    pub fn send(&self, payload: String) -> Result<Response, Box<dyn Error>> {
+    pub async fn send(&self, payload: String) -> Result<Response, Box<dyn Error>> {
         // Create HTTP client.
         let client = self.create_client()?;
 
@@ -143,7 +150,30 @@ impl SQLand {
             _ => panic!("Unsupported method"),
         };
 
-        let response = request.send()?;
+        let response = request.send().await?;
         Ok(response)
+    }
+
+    pub async fn calculate_avg_res_time(&self, samples: u128) -> Result<u128, Box<dyn Error>> {
+        // Raw result with all times.
+        let mut raw_result: u128 = 0;
+        let mut expected: u16 = 0;
+
+        for _ in 0..samples {
+            let start = Instant::now();
+            let res = self.send(random_length_string(4, 10)).await?;
+            let duration = start.elapsed();
+            raw_result += duration.as_millis();
+
+            let status = res.status().as_u16();
+
+            if expected == 0 {
+                expected = status;
+            } else if expected != status {
+                panic!("Failed to calculate average response time, status code between samples mismatch (exp {} != rcv {})", expected, status);
+            }
+        }
+
+        Ok(raw_result / samples)
     }
 }

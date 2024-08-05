@@ -1,0 +1,29 @@
+adodb.command
+adodb.field
+bof or eof
+error occurred while processing request
+error executing database query
+fetchrow()
+getarray()
+input string was not in a correct format
+invalid querystring
+jet database
+microsoft jet database
+microsoft ole db provider for odbc drivers error
+microsoft ole db provider for sql server
+miscerror
+miscerror2
+mysql_fetch
+mysql_fetch_array()
+mysql_numrows()
+num_rows
+odbcmicrosoft access driver
+ole db provider for odbc
+oracle
+postgresql.util
+query failed:
+server error
+sql command net properly ended
+syntax error
+unclosed quotation mark
+vbscript runtime

