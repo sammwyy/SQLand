@@ -34,6 +34,7 @@ pub fn initialize_tracing_subscriber() {
         .with_max_level(tracing::Level::INFO)
         .compact()
         .without_time()
+        .with_target(false)
         .init();
 }
 
@@ -57,7 +58,7 @@ pub async fn load_detected_errors(
         .collect();
 
     if apply_filtering {
-        println!("Filtering error matching expressions using vanilla request...");
+        info!("Filtering error matching expressions using vanilla request...");
         let vanilla_response = sqland.send("".to_string()).await?;
         let vanilla_body = vanilla_response.text().await?.to_lowercase();
         detected_errors.retain(|error| !vanilla_body.contains(error));

@@ -46,10 +46,6 @@ pub struct Args {
     #[arg(short = 'n', long, action = ArgAction::SetTrue)]
     pub no_filtering: bool,
 
-    /// Show all successfully payload instead only the first one
-    #[arg(short = 'a', long, action = ArgAction::SetTrue)]
-    pub all: bool,
-
     // Number of simultaneous payload requests
     #[arg(short = 'w', long, default_value_t = 4)]
     pub workers: usize,

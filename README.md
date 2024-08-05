@@ -28,7 +28,6 @@ To use SQLand, clone the repository and run the tool with the appropriate argume
 | `-j` `--json`            | Post param and data as JSON               | `boolean`                           | ❌   |
 | `-f` `--form`            | Post param and data as Form Data          | `boolean`                           | ❌   |
 | `-w` `--workers`         | Number of simultaneous payload requests   | `number (Default 4)`                | ❌   |
-| `-a` `--all`             | Log all successfully payload              | `boolean`                           | ❌   |
 | `-n` `--no_filtering`    | Don't use vanilla request for filtering   | `boolean`                           | ❌   |
 | `-s` `--offset_samples`  | Samples to calculate avg response time    | `number (Default 0)`                | ❌   |
 | `-o` `--offset`          | Time based attack latency offset          | `number (Default 0)`                | ❌   |

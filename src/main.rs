@@ -61,7 +61,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         sqland.clone(),
         time_based_payloads.clone(),
         offset,
-        args.all,
         args.workers,
     )
     .await;
@@ -69,7 +68,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         sqland.clone(),
         error_based_payloads.clone(),
         detected_errors.clone(),
-        args.all,
         args.workers,
     )
     .await;
@@ -93,11 +91,10 @@ async fn test_time_based_injection(
     sqland: Arc<SQLand>,
     payloads: Arc<Vec<String>>,
     offset: u128,
-    all: bool,
     workers: usize,
 ) -> bool {
     info!("Starting Time-based Blind SQL Injection testing...");
-    let mut result = false;
+
     let payloads_len = payloads.len();
     let mut handles = Vec::new();
 
@@ -124,12 +121,10 @@ async fn test_time_based_injection(
         handles.push(handle);
     }
 
+    let mut result = false;
     for handle in handles {
         if handle.await.unwrap_or(false) {
             result = true;
-            if !all {
-                break;
-            }
         }
     }
 
@@ -140,16 +135,15 @@ async fn test_error_based_injection(
     sqland: Arc<SQLand>,
     payloads: Arc<Vec<String>>,
     detected_errors: Arc<Vec<String>>,
-    all: bool,
     workers: usize,
 ) -> bool {
     info!("Starting Error-based Blind SQL Injection testing...");
-    let mut result = false;
+
     let payloads_len = payloads.len();
     let mut handles = Vec::new();
 
     let chunk_size = if workers > payloads_len {
-        payloads_len
+        1
     } else {
         payloads_len / workers
     };
@@ -172,12 +166,10 @@ async fn test_error_based_injection(
         handles.push(handle);
     }
 
+    let mut result = false;
     for handle in handles {
         if handle.await.unwrap_or(false) {
             result = true;
-            if !all {
-                break;
-            }
         }
     }
 

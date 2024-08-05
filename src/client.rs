@@ -52,7 +52,7 @@ impl SQLand {
 
         SQLand {
             method: settings.method.unwrap_or("GET".to_string()),
-            body_type: SQLandBodyType::RAW,
+            body_type: settings.body_type.unwrap_or(SQLandBodyType::RAW),
             headers: settings.headers.unwrap_or_default(),
             cookies: settings.cookies.unwrap_or_default(),
             params: settings.params.unwrap_or_default(),
